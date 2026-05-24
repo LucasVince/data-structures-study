@@ -1,3 +1,5 @@
+import json
+
 class Node:
     def __init__(self, data):
         self.data = data
@@ -13,6 +15,37 @@ class LinkedList:
             print(current.data, end=' -> ')
             current = current.next
         print('None')
+
+    def search(self, data):
+        current = self.head
+        count = 0
+
+        while current:
+            if current.data == data:
+                return count
+
+            count += 1
+            current = current.next
+        
+        return False
+
+    def find_by_index(self, index):
+        current = self.head
+        prev = None
+        count = 1
+
+        if index == -1:
+            while current:
+                prev = current
+                current = current.next
+            
+            return prev.data
+
+        while current and count <= index:
+            count += 1
+            current = current.next
+        
+        return current.data or False
 
     def append(self, data):
         new_node = Node(data)
@@ -110,3 +143,18 @@ class LinkedList:
             current = current.next
             
         return array
+
+    # def dict_convert(self):
+    #     dict = {}
+
+    #     current = self.head
+
+    #     while current:
+    #         dict["data"] = current.data
+
+    #         current = current.next
+
+    #     return dict
+
+    # def json_convert(self):
+    #     return json.dumps(self.dict_convert())
