@@ -14,7 +14,7 @@ class LinkedList:
             current = current.next
         print('None')
 
-    def append (self, data):
+    def append(self, data):
         new_node = Node(data)
 
         if self.head == None:
@@ -27,7 +27,7 @@ class LinkedList:
                 last = last.next
             last.next = new_node
 
-    def insert_after (self, prev_data, data):
+    def insert_after(self, prev_data, data):
         new_node = Node(data)
 
         current = self.head
@@ -42,7 +42,24 @@ class LinkedList:
 
             current = current.next
 
-    def prepend (self, data):
+    def inset_before(self, next_data, data):
+        new_node = Node(data)
+
+        current = self.head
+        prev = None
+
+        while current:
+            if current.data == next_data:
+                new_node = Node(data)
+
+                new_node.next = current
+                prev.next = new_node
+                return
+
+            prev = current
+            current = current.next
+
+    def prepend(self, data):
         new_node = Node(data)
         next_data = self.head
 
@@ -50,15 +67,43 @@ class LinkedList:
 
         self.head.next = next_data
 
-    def delete (self, delete_data):
+    def delete(self, delete_data):
         current = self.head
+        prev = None
 
         while current:
             if current.data == delete_data:
                 
+                if prev == None:
+                    self.head = current.next
+                else:
+                    prev.next = current.next
                 return
 
+            prev = current
             current = current.next
+
+    def length(self):
+        current = self.head
+        count = 0
+
+        while current:
+            count += 1
+
+            current = current.next
+
+        return count
+
+    def array_convert(self):
+        current = self.head
+        array = []
+
+        while current:
+            array.append(current.data)
+
+            current = current.next
+            
+        return array
 
 ll = LinkedList()
 
@@ -70,3 +115,9 @@ ll.append(50)
 ll.display()
 ll.delete(50)
 ll.display()
+ll.inset_before(20,15)
+ll.display()
+
+ll_array = ll.array_convert()
+print(ll_array)
+print(ll.length())
