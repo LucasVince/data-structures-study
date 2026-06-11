@@ -1,13 +1,17 @@
 array = [2, 4, 8, 16, 32, 64, 128, 256, 512, 1024]
 
 def binary_search(arr, target):
-    middle = (len(arr) // 2)
+    left = 0
+    right = len(arr) - 1
 
-    if target < arr[middle]:
-        binary_search(arr[:middle + 1], target)
-    elif target > arr[middle]:
-        binary_search(arr[middle - 1:], target)
-    else:
-        return middle
+    while left <= right:
+        middle = (left + right) // 2
 
-print(binary_search(array, 16))
+        if target < arr[middle]:
+            right = middle - 1
+        elif target > arr[middle]:
+            left = middle + 1
+        else:
+            return middle
+
+    return -1
