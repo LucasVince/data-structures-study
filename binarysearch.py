@@ -1,5 +1,3 @@
-array = [2, 4, 8, 16, 32, 64, 128, 256, 512, 1024]
-
 def binary_search(arr, target):
     left = 0
     right = len(arr) - 1
