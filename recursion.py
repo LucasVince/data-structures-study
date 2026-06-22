@@ -14,14 +14,17 @@ def power(base, expo):
     return base * power(base, expo - 1)
 
 
-def recursive_binary_search(arr, target):
-    middle = (len(arr) // 2)
+def recursive_binary_search(arr: list[int], start: int, end: int, target: int):
+    if start > end:
+        return -1
+
+    middle = start + (end - start) // 2
 
     if target < arr[middle]:
-        return recursive_binary_search(arr[:middle + 1], target)
+        return recursive_binary_search(arr, start, middle - 1, target)
     elif target > arr[middle]:
-        return recursive_binary_search(arr[middle - 1:], target)
-    else:
+        return recursive_binary_search(arr, middle + 1, end, target)
+    elif arr[middle] == target:
         return middle
 
 
