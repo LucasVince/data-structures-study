@@ -23,3 +23,19 @@ def quick_sort(arr, start, end):
 
     quick_sort(arr, start, i - 1)
     quick_sort(arr, i + 1, end)
+
+def quicksort2(arr):
+    if len(arr) <= 1:
+        return arr
+    else:
+        pivot = arr[0]
+        low = []
+        hight = []
+
+        for i in arr:
+            if i < pivot:
+                low.append(i)
+            elif i > pivot:
+                hight.append(i)
+
+        return quicksort(low) + [pivot] + quicksort(hight)
