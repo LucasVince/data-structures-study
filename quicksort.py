@@ -1,4 +1,4 @@
-array = [7, 2, 10, 0, 9, 1, 8, 3, 6, 4, 5]
+from random import randint
 
 def quick_sort(arr, start, end):
     if start >= end:
@@ -23,19 +23,19 @@ def quick_sort(arr, start, end):
 
     quick_sort(arr, start, i - 1)
     quick_sort(arr, i + 1, end)
-
+    
 def quicksort2(arr):
     if len(arr) <= 1:
         return arr
     else:
-        pivot = arr[0]
+        pivot = arr[randint(0, len(arr) - 1)]
         low = []
-        hight = []
+        high = []
 
         for i in arr:
             if i < pivot:
                 low.append(i)
             elif i > pivot:
-                hight.append(i)
+                high.append(i)
 
-        return quicksort(low) + [pivot] + quicksort(hight)
+        return quicksort(low) + [pivot] + quicksort(high)
