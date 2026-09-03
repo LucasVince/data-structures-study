@@ -15,7 +15,9 @@ void append(DynamicArray * dArr, int val);
 int pop(DynamicArray * dArr);
 
 int main() {
-    DynamicArray dArr = createArray(10, 90, 25);
+    DynamicArray dArr = createArray(20, 85, 25);
+    
+    printArray(&dArr);
 
     return 0;
 }
@@ -34,6 +36,13 @@ DynamicArray createArray(int size, int over, int under) {
 }
 
 void append(DynamicArray * dArr, int val) {
+    int occupancyPercentage = (100 * (dArr->logicSize + 1)) / dArr->maxSize;
+
+    if (occupancyPercentage > dArr->overflowPercentage) {
+        printf("too high overflow!!!");
+        return;
+    }
+
     dArr->array[dArr->logicSize] = val;
     dArr->logicSize++;
 }
@@ -44,6 +53,7 @@ int pop(DynamicArray * dArr) {
 }
 
 void printArray(DynamicArray * dArr) {
+
     printf("{ ");
 
     for (int i = 0 ; i < dArr->logicSize ; i++) {
