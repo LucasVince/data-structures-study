@@ -12,15 +12,24 @@ class hashmap:
         self.bucket = [None for _ in range(self.size)]
 
     def hasher(self, value):
-        hashSum = 0
+        h = 0
+        base = 31
 
         for c in value:
-            hashSum += ord(c) - ord("a")
+            h = (h * base + ord(c)) % self.size
 
-        return hashSum % 16
+        return h
 
-    def get():
+    def getIndex(self, value):
         return 0
 
-    def post():
+    def get(self, value):
         return 0
+
+    def post(self, value):
+        return 0
+
+hMap = hashmap(64)
+
+print(hMap.hasher('abacate'))
+print(hMap.hasher('banana'))
