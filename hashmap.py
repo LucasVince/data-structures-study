@@ -1,7 +1,7 @@
 class Node:
     def __init__(self, value, index):
         self.value = value
-        self.index
+        self.index = index
 
 class HashMap:
     def __init__(self, size):
@@ -20,6 +20,13 @@ class HashMap:
 
         return h
 
+    def printBucket(self):
+        for n in self.bucket:
+            if n is not None:
+                print(f"(value: {n.value}, index: {n.index})")
+            else:
+                print(n)
+
     def get(self, value):
         return 0
 
@@ -30,5 +37,6 @@ class HashMap:
 
 hMap = HashMap(64)
 
-print(hMap.hasher('abacate'))
-print(hMap.hasher('banana'))
+hMap.post('abacate')
+
+hMap.printBucket()
