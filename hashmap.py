@@ -1,9 +1,9 @@
-class node:
-    def __init__(self, value):
+class Node:
+    def __init__(self, value, index):
         self.value = value
-        self.index
+        self.index = index
 
-class hashmap:
+class HashMap:
     def __init__(self, size):
         self.size = size
         self.loadFactor = 0
@@ -20,16 +20,23 @@ class hashmap:
 
         return h
 
-    def getIndex(self, value):
-        return 0
+    def printBucket(self):
+        for n in self.bucket:
+            if n is not None:
+                print(f"(value: {n.value}, index: {n.index})")
+            else:
+                print(n)
 
     def get(self, value):
         return 0
 
     def post(self, value):
-        return 0
+        i = self.hasher(value)
+        data = Node(value, i)
+        self.bucket[i] = data
 
-hMap = hashmap(64)
+hMap = HashMap(64)
 
-print(hMap.hasher('abacate'))
-print(hMap.hasher('banana'))
+hMap.post('abacate')
+
+hMap.printBucket()
