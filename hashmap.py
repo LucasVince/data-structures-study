@@ -20,6 +20,17 @@ class HashMap:
             h = (h * base + ord(c)) % self.size
         return h
 
+    def calcLoadFactor(self):
+        lf = self.elements / self.size
+        self.loadFactor = lf
+
+        return self.loadFactor
+
+    def doubleBucket(self):
+        self.bucket += [None for _ in range(self.size)]
+        self.size *= 2
+        return
+
     def printBucket(self):
         for n in self.bucket:
             if n is not None:
@@ -49,8 +60,18 @@ class HashMap:
         data = Node(key, value, i)
         self.bucket[i] = data
 
+        self.elements += 1
+
+        if self.calcLoadFactor() >= self.limit:
+            self.doubleBucket()
+
+        return
+
 hMap = HashMap(64)
 
 hMap.post('abacate', 23)
+print(hMap.loadFactor)
+print(hMap.size)
 hMap.post('morango', 2)
-
+print(hMap.loadFactor)
+print(hMap.size)
