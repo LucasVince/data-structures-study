@@ -1,5 +1,6 @@
 class Node:
-    def __init__(self, value, index):
+    def __init__(self, key, value, index):
+        self.key = key
         self.value = value
         self.index = index
 
@@ -11,13 +12,12 @@ class HashMap:
         self.limit = 0.8
         self.bucket = [None for _ in range(self.size)]
 
-    def hasher(self, value):
+    def hasher(self, key):
         h = 0
         base = 31
 
-        for c in value:
+        for c in key:
             h = (h * base + ord(c)) % self.size
-
         return h
 
     def printBucket(self):
@@ -27,16 +27,21 @@ class HashMap:
             else:
                 print(n)
 
-    def get(self, value):
-        return 0
+    def get(self, key):
+        i = self.hasher(key)
 
-    def post(self, value):
-        i = self.hasher(value)
-        data = Node(value, i)
+        if self.bucket[i] is not None:
+            return self.bucket[i].value
+        else:
+            return -1
+
+    def post(self, key, value):
+        i = self.hasher(key)
+        data = Node(key, value, i)
         self.bucket[i] = data
 
 hMap = HashMap(64)
 
-hMap.post('abacate')
-
-hMap.printBucket()
+hMap.post('abacate', 23) # inserts the key-value pair
+print(hMap.get('abacate')) # value: 23
+print(hMap.get('morango')) # -1
