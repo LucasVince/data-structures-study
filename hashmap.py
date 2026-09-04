@@ -37,11 +37,20 @@ class HashMap:
 
     def post(self, key, value):
         i = self.hasher(key)
+
+        if self.bucket[i] is not None:
+            if self.bucket[i].value == value:
+                self.bucket[i].value = value
+                return
+            
+            print("collision")
+            return
+
         data = Node(key, value, i)
         self.bucket[i] = data
 
 hMap = HashMap(64)
 
-hMap.post('abacate', 23) # inserts the key-value pair
-print(hMap.get('abacate')) # value: 23
-print(hMap.get('morango')) # -1
+hMap.post('abacate', 23)
+hMap.post('morango', 2)
+
