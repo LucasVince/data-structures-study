@@ -46,6 +46,19 @@ class HashMap:
         else:
             return -1
 
+    def rehash(self):
+        notNullNodes = []
+        for n in self.bucket:
+            if n is not None:
+                notNullNodes.append(n)
+
+        self.bucket = [None for _ in range(self.size)]
+
+        for n in notNullNodes:
+            newIndex = self.hasher(n.key)
+            n.inddex = newIndex
+            self.bucket[newIndex] = n
+                
     def post(self, key, value):
         i = self.hasher(key)
 
@@ -53,8 +66,8 @@ class HashMap:
             if self.bucket[i].value == value:
                 self.bucket[i].value = value
                 return
-            
-            print("collision")
+            self.size *= 2
+            self.rehash()   
             return
 
         data = Node(key, value, i)
@@ -64,14 +77,12 @@ class HashMap:
 
         if self.calcLoadFactor() >= self.limit:
             self.doubleBucket()
-
         return
 
 hMap = HashMap(64)
 
 hMap.post('abacate', 23)
-print(hMap.loadFactor)
-print(hMap.size)
 hMap.post('morango', 2)
-print(hMap.loadFactor)
-print(hMap.size)
+hMap.post('banana', 13)
+hMap.printBucket()
+print(hMap.get('banana'))
