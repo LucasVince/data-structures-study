@@ -55,9 +55,7 @@ class HashMap:
         self.bucket = [None for _ in range(self.size)]
 
         for n in notNullNodes:
-            newIndex = self.hasher(n.key)
-            n.inddex = newIndex
-            self.bucket[newIndex] = n
+            self.post(n.key, n.value)
                 
     def post(self, key, value):
         i = self.hasher(key)
@@ -66,8 +64,17 @@ class HashMap:
             if self.bucket[i].value == value:
                 self.bucket[i].value = value
                 return
-            self.size *= 2
-            self.rehash()   
+            
+            auxIndex = self.size + 1
+            
+            self.doubleBucket()
+
+            data = Node(key, value, auxIndex)
+            self.bucket[auxIndex] = data
+
+            self.elements += 1
+
+            self.rehash()
             return
 
         data = Node(key, value, i)
@@ -79,10 +86,4 @@ class HashMap:
             self.doubleBucket()
         return
 
-hMap = HashMap(64)
-
-hMap.post('abacate', 23)
-hMap.post('morango', 2)
-hMap.post('banana', 13)
-hMap.printBucket()
-print(hMap.get('banana'))
+hMap = HashMap(10)
