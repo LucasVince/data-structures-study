@@ -112,23 +112,22 @@ graph2 = {
     99: []
 }
 
-def depthFirstSearch(start, g):
+def breadthFirstSearch(start, g):
     seen = set()
     seen.add(start)
     neighbours = [start]
 
     neighbours = g.get(start)
 
-    while neighbours != []:
-        lastElement = neighbours.pop()
+    while neighbours != []:        
+        firstElement = neighbours.pop(0)
 
-        if lastElement in seen:
+        if firstElement in seen:
             continue
 
-        seen.add(lastElement)
+        seen.add(firstElement)
 
-        neighbours += g.get(lastElement, [])
-
+        neighbours = g.get(firstElement, []) + neighbours
     print(seen)
 
-depthFirstSearch(0, graph2)
+breadthFirstSearch(0, graph1)
