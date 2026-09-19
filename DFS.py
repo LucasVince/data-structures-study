@@ -1,4 +1,15 @@
-graph = {
+graph1 = {
+    0: [1, 3],
+    1: [2], 
+    2: [],
+    3: [4, 7, 6],
+    4: [2, 5],
+    5: [2, 4],
+    6: [],
+    7: [] 
+}
+
+graph2 = {
     0: [1, 3, 7],
     1: [2, 4],
     2: [5, 8],
@@ -102,24 +113,21 @@ graph = {
 }
 
 def depthFirstSearch(start, g):
-    seen = []
-    neighbours = []
+    seen = set()
+    neighbours = [start]
 
     neighbours = g.get(start)
 
     while neighbours != []:
-        lastElement = neighbours[len(neighbours) - 1]
+        lastElement = neighbours.pop()
 
-        seen.append(lastElement)
-        neighbours.pop()
+        if lastElement in seen:
+            continue
 
-        for n in g.get(lastElement):
+        seen.add(lastElement)
 
-            if n in seen or n in neighbours:
-                continue
-
-            neighbours.append(n)
+        neighbours += g.get(lastElement, [])
 
     print(seen)
 
-depthFirstSearch(0, graph)
+depthFirstSearch(0, graph2)
